@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Mahasiswa {
+    char nama[50];
+    char nim[20];
+    char program_studi[50];
+};
+
+void tulisDataMahasiswa() {
+    FILE *file = fopen("data_mahasiswa.txt", "w");
+    if (file == NULL) {
+        printf("Gagal membuka file untuk menulis.\n");
+        return;
+    }
+
+    struct Mahasiswa mahasiswa[3];
+    int i;
+    for (i = 0; i < 1; i++) {
+        printf("Masukkan nama mahasiswa: ", i);
+        scanf(" %[^\n]", mahasiswa[i].nama);
+        printf("Masukkan NIM mahasiswa: ", i);
+        scanf(" %[^\n]", mahasiswa[i].nim);
+        printf("Masukkan Program Studi mahasiswa: ", i);
+        scanf(" %[^\n]", mahasiswa[i].program_studi);
+
+        fprintf(file, "Nama: %s\n", mahasiswa[i].nama);
+        fprintf(file, "NIM: %s\n", mahasiswa[i].nim);
+        fprintf(file, "Program Studi: %s\n\n", mahasiswa[i].program_studi);
+    }
+
+    fclose(file);
+    printf("Data mahasiswa berhasil ditulis ke file.\n");
+}
+
+
+void bacaDataMahasiswa() {
+    FILE *file = fopen("data_mahasiswa.txt", "r");
+    if (file == NULL) {
+        printf("Gagal membuka file untuk membaca.\n");
+        return;
+    }
+
+    char buffer[256];
+    printf("Data mahasiswa dari file:\n");
+    while (fgets(buffer, sizeof(buffer), file)) {
+        printf("%s", buffer);
+    }
+
+    fclose(file);
+}
+
+int main() {
+    int pilihan;
+
+    while (1) {
+        printf("\nPilih aksi:\n");
+        printf("1. Tulis data mahasiswa\n");
+        printf("2. Baca data mahasiswa\n");
+        printf("Masukkan pilihan: ");
+        scanf("%d", &pilihan);
+
+        if (pilihan == 1) {
+            tulisDataMahasiswa();
+        } else if (pilihan == 2) {
+            bacaDataMahasiswa();
+            break;
+        } else {
+            printf("Pilihan tidak valid. Coba lagi.\n");
+        }
+    }
+
+    return 0;
+}
+

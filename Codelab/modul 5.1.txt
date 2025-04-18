@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char students[5][20] = {"Alice", "Bob", "Charlie", "David", "Eva"};
+    int scores[5] = {85, 90, 78, 92, 88};
+    int i;
+    printf("Daftar Nilai dan siswa Sebelum Perubahan:\n");
+    for ( i = 0; i < 5; i++) {
+        printf("%s: %d\n", students[i], scores[i]);
+    }
+    printf("-------------------------------\n");
+    
+    for ( i = 0; i < 5; i++) {
+        if (strcmp(students[i], "David") == 0) { 
+            scores[i] = 95; 
+            break; 
+        }
+    }
+    
+    printf("Daftar Nilai dan nilai  Setelah Perubahan:\n");
+    for ( i = 0; i < 5; i++) {
+        printf("%s: %d\n", students[i], scores[i]);
+    } 
+    printf("-------------------------------\n");
+    
+    return 0;
+}

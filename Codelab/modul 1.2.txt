@@ -1,0 +1,22 @@
+#include <stdio.h>
+int main(){
+	char nama[50];
+	int umur;
+	float gaji_pokok,tunjangan, total_gaji;
+	printf("masukkan nama: ");
+	scanf("%s", &nama);
+	
+	printf("masukkan umur: ");
+	scanf("%d", &umur);
+	
+	printf("masukkan gaji_pokok: ");
+	scanf("%f", &gaji_pokok);
+	
+	tunjangan = gaji_pokok * 0.1;
+	total_gaji = gaji_pokok + tunjangan;
+	printf("nama: %s\n", nama);
+	printf("umur: %d\n", umur);
+	printf("gaji_pokok: %.2f\n", gaji_pokok);
+	printf("tunjangan: %.2f\n", tunjangan);
+	printf("total_gaji: %.2f\n", total_gaji);
+}

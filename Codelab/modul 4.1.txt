@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+int main() {
+    int nomor; 
+    int jumlah = 0;  
+    int menghitung = 0;  
+    double rata_rata; 
+    
+    while (1) { 
+        printf("Masukkan bilangan bulat (masukkan bilangan negatif untuk berhenti):"); 
+        scanf("%d", &nomor);
+
+        if (nomor < 0) {
+            break;
+        }
+
+        jumlah += nomor; 
+        menghitung++;   
+    }
+
+    
+    if (menghitung > 0) { 
+        rata_rata = (double)jumlah / menghitung; 
+        printf("Total bilangan yang dimasukkan: %d\n", jumlah);
+        printf("Rata-rata bilangan: %.2f\n", rata_rata);
+    } else {
+        printf("Tidak ada bilangan yang dimasukkan.\n");
+    }
+
+    return 0;
+}

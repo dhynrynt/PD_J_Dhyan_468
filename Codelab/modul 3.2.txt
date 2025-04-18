@@ -1,0 +1,32 @@
+ #include <stdio.h>
+
+enum Class {ekonomi = 1, business, eksekutif};
+
+int main() {
+    enum Class userInput ;
+    
+    printf ("Pilih kelas tiket: \n");
+    printf ("1. Kelas Economy\n");
+    printf ("2. Kelas Business\n");
+    printf ("3. Kelas First class\n");
+    printf ("Masukkan pilihan (1-3): ");
+    scanf ("%d", &userInput);
+
+    
+    switch (userInput) {
+        case 1:
+            printf ("Harga tiket kelas ekonomi: Rp 500.000\n");
+            break;
+        case 2:
+            printf ("Harga tiket kelas bisnis: Rp 1.500.000\n");
+            break;
+        case 3:
+            printf ("Harga tiket kelas utama: Rp 3.000.000\n");
+            break;
+        default:
+            printf ("Pilihan tidak valid!\n");
+            break;
+    }
+
+    return 0;
+}

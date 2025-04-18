@@ -1,0 +1,28 @@
+#include <stdio.h>
+int main(){
+	const int kalori_harian = 2000;
+	int makanan_1, makanan_2, makanan_3, total_kalori;
+	printf("====program penghitung kalori harian===\n");
+	printf("program ini akan menghitung total kalori yg dikonsumsi\n");
+
+	printf("masukan kalori makanan pertama =");
+	scanf("%d", &makanan_1);
+
+	printf("masukan kalori makanan kedua =");
+	scanf("%d", &makanan_2);
+
+	printf("masukan kalori makanan ketiga =");
+	scanf("%d", &makanan_3);
+	
+	total_kalori = makanan_1 + makanan_2 + makanan_3;
+	printf("\ntotal kalori: %d\n", total_kalori);
+
+	if(total_kalori < kalori_harian){
+		printf("kalori anda tidak melebihi batas kalori harian");
+	}else{
+		printf("kalori anda melebihi batas kalori harian");
+	}
+	
+	 
+
+}
