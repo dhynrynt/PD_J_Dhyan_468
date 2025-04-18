@@ -1,0 +1,34 @@
+ #include <stdio.h>
+int main()
+{
+	char nama[50];
+	long long int nim;
+	int nilai_tugas;
+	int nilai_uts;
+	int nilai_uas;
+	float nilai_akhir;
+	
+	printf("--- Program Penghitung Nilai Akhir Mahasiswa ---\n");
+	printf("Masukkan Nama Mahasiswa: "); 
+	gets (nama);
+	printf("Masukkan NIM Mahasiswa: "); 
+	scanf("%lld", &nim);
+	printf("Masukkan Nilai Tugas (0-100): "); 
+	scanf("%d", &nilai_tugas);
+	printf("Masukkan Nilai UTS (0-100): "); 
+	scanf("%d", &nilai_uts);
+	printf("Masukkan Nilai UAS (0-100): "); 
+	scanf("%d", &nilai_uas);
+	
+	printf("-----------------------------------------\n");
+	printf("Nama Mahasiswa: %s\n", nama);
+	printf("NIM Mahasiswa: %lld\n", nim);
+	printf("Nilai Tugas: %d\n", nilai_tugas);
+	printf("Nilai UTS: %d\n", nilai_uts);
+	printf("Nilai UAS: %d\n", nilai_uas);
+	nilai_akhir = (nilai_tugas*20/100)+(nilai_uts*35/100)+(nilai_uas*45/100);
+	printf("Nilai Akhir: %.2f\n", nilai_akhir);
+	printf("-----------------------------------------\n");
+
+	return 0;
+}
