@@ -1,0 +1,13 @@
+#include <stdio.h>
+int main(){
+	int tb , peserta;
+	tb = 160;
+	
+	printf("masukan tinggi badan peserta:");
+	scanf("%d", &peserta);
+	 if(tb < peserta){
+		 printf("diterima");
+	 }else{
+		 printf("ditolak");
+	 }
+}

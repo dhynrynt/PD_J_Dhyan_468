@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <string.h>
+
+char username[50] = "wahyudin";
+char password[50] = "10101982";
+int saldo = 2000000; 
+
+int login() {
+    char inputUser[50], inputPass[50];
+    printf("=============== LOGIN WALLET ===============\n");
+    printf("   Username: ");
+    scanf("%s", inputUser);
+    printf("   Password: ");
+    scanf("%s", inputPass);
+
+    if (strcmp(inputUser, username) == 0 && strcmp(inputPass, password) == 0) {
+        printf("\n\nLogin berhasil!\n\n");
+        return 1;
+    } else {
+        printf("Login gagal! Username atau password salah.\n\n");
+        return 0;
+    }
+}
+
+void cekSaldo() {
+    printf("Saldo Anda saat ini: Rp %d\n\n", saldo);
+}
+
+void transfer() {
+    int nominal;
+    char tujuan[50];
+
+    printf("Masukkan nama penerima: ");
+    scanf("%s", tujuan);
+    printf("Masukkan nominal transfer: ");
+    scanf("%d", &nominal);
+
+    if (nominal > saldo) {
+        printf("Saldo tidak mencukupi!\n\n");
+    } else {
+        saldo -= nominal;
+        printf("Transfer Rp %d ke %s berhasil!\n\n", nominal, tujuan);
+    }
+}
+
+void topUp() {
+    int nominal;
+    printf("Masukkan nominal top-up: ");
+    scanf("%d", &nominal);
+
+    if (nominal > 0) {
+        saldo += nominal;
+        printf("Top-up Rp %d berhasil!\n\n", nominal);
+    } else {
+        printf("Nominal tidak valid!\n\n");
+    }
+}
+
+int main() {
+    int pilihan, loggedIn = 0;
+
+    while (!loggedIn) {
+        loggedIn = login();
+    }
+
+    do {
+        printf("=============== MENU SIX-WALLET ================\n");
+        printf("   1. Cek Saldo\n");
+        printf("   2. Transfer\n");
+        printf("   3. Top-up\n");
+        printf("   4. Logout\n");
+        printf("   5. Keluar\n");
+        printf("   Pilih menu: ");
+        scanf("%d", &pilihan);
+
+        switch (pilihan) {
+            case 1:
+                cekSaldo();
+                break;
+            case 2:
+                transfer();
+                break;
+            case 3:
+                topUp();
+                break;
+            case 4:
+                printf("Logout berhasil.\n\n");
+                loggedIn = 0;
+                while (!loggedIn) {
+                    loggedIn = login();
+                }
+                break;
+            case 5:
+            	printf("Terima Kasih telah menggunakan SIX-WALLET.\n");
+            	break;
+            default:
+                printf("Pilihan tidak valid!\n\n");
+        }
+    } while (pilihan != 5);
+
+	return 0;
+}

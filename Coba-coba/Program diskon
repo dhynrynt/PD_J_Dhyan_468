@@ -1,0 +1,30 @@
+#include <stdio.h>
+int main(){
+	double total_belanja, diskon, total_akhir;
+	
+	printf("======program diskon belanja=======\n");
+	
+	printf("masukan total belanjaan anda:");
+	scanf("%lf", &total_belanja);
+	
+	if(total_belanja >= 1000000)
+	{	
+	   diskon = 0.5;
+	}
+	else if (total_belanja >= 500000)
+	{
+		diskon = 0.2;
+	}
+	else if (total_belanja >= 300000)
+	{
+		diskon = 0.1;
+	}
+	else
+	{
+		diskon = 0.0;
+	};
+	
+	total_akhir = total_belanja - (total_belanja*diskon);
+	printf("total belanjaan anda adalah: %.2lf\n",total_belanja);
+	printf("diskon: %.0lf%%\n", diskon*100);		   
+}

@@ -1,0 +1,30 @@
+#include <stdio.h>
+int main (){
+
+	double pemakaian, pembayaran, tarif_akhir;
+	 
+	 printf("masukan total pemakaian anda:");
+	 scanf("%lf",&pemakaian);
+	 
+	if(pemakaian <= 10)
+	{
+		pembayaran = 25000;
+	}
+	else if(pemakaian <= 20)
+	{
+		pembayaran = 25000+(pemakaian-10)*3000;
+	}	
+	else if(pemakaian >= 20)
+	{
+		pembayaran = 25000+10*3000+(pemakaian-20)*3500;
+	} 
+	else
+	{
+		pembayaran = 0;
+	};
+	
+	tarif_akhir = pemakaian - (pemakaian*pembayaran);
+	printf("total pemakaian anda adalah: %.0lf\n",pemakaian);
+	printf("pembayaran: %.2lf\n", pembayaran);
+	
+}

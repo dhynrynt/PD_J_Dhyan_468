@@ -1,0 +1,166 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define RESET "\033[0m"
+#define BOLD "\033[1m"
+#define BLUE "\033[1;34m"
+#define GREEN "\033[1;32m"
+#define YELLOW "\033[1;33m"
+#define RED "\033[1;31m"
+#define MAGENTA "\033[1;35m"
+#define CYAN "\033[1;36m"
+
+typedef struct {
+  char name[50];
+  int price;
+  int quantity;
+} Item;
+
+Item cart[50];
+int cartSize = 0;
+char username[50];
+const char *FILENAME = "shopping_cart.txt";
+
+void displayMenu();
+void addItem();
+void removeItem();
+void calculateTotal();
+void loadCart();
+void saveCart();
+void login();
+
+int main() {
+  int choice;
+
+  login();    
+  loadCart(); 
+
+  while (1) {
+    displayMenu();
+    scanf("%d", &choice);
+
+    switch (choice) {
+    case 1:
+      addItem();
+      break;
+    case 2:
+      removeItem();
+      break;
+    case 3:
+      calculateTotal();
+      break;
+    case 4:
+      printf(RED "Terima kasih telah menggunakan aplikasi! Keluar...\n" RESET);
+      saveCart(); 
+      exit(0);
+    default:
+      printf(YELLOW "Pilihan tidak valid, coba lagi!\n" RESET);
+    }
+  }
+
+  return 0;
+}
+
+void login() {
+  printf(CYAN "Selamat datang di Aplikasi TKinter!\n" RESET);
+  printf("Masukkan username Anda: ");
+  scanf("%s", username);
+  printf(GREEN "Login berhasil! Selamat datang, %s\n" RESET, username);
+}
+
+void displayMenu() {
+  printf(BLUE "=======================================\n" RESET);
+  printf(BLUE "1. Tambah barang\n" RESET);
+  printf(GREEN "2. Hapus Barang\n" RESET);
+  printf(YELLOW "3. Hitung total harga\n" RESET);
+  printf(RED "4. Keluar\n" RESET);
+  printf(BLUE "=======================================\n" RESET);
+  printf("Pilihan Anda: ");
+}
+
+void addItem() {
+  if (cartSize >= 50) {
+    printf(RED "Keranjang penuh! Tidak bisa menambah barang.\n" RESET);
+    return;
+  }
+
+  printf(CYAN "Masukkan nama barang: " RESET);
+  scanf("%s", cart[cartSize].name);
+  printf(CYAN "Masukkan harga barang: " RESET);
+  scanf("%d", &cart[cartSize].price);
+  printf(CYAN "Masukkan jumlah barang: " RESET);
+  scanf("%d", &cart[cartSize].quantity);
+  cartSize++;
+  printf(GREEN "Barang berhasil ditambahkan!\n" RESET);
+}
+
+void removeItem() {
+  char name[50];
+  int found = 0;
+  int i,j;
+  printf(CYAN "Masukkan nama barang yang ingin dihapus: " RESET);
+  scanf("%s", name);
+
+  for ( i = 0; i < cartSize; i++) {
+    if (strcmp(cart[i].name, name) == 0) {
+      for ( j = i; j < cartSize - 1; j++)
+        cart[j] = cart[j + 1];
+      cartSize--;
+      printf(GREEN "Barang berhasil dihapus!\n" RESET);
+      found = 1;
+      break;
+    }
+  }
+  if (!found)
+    printf(RED "Barang tidak ditemukan!\n" RESET);
+}
+
+void calculateTotal() {
+  int total = 0;
+  int i;
+  printf(BOLD "Daftar Barang di Keranjang:\n" RESET);
+  printf(MAGENTA "%-20s %-10s %-10s %-10s\n" RESET, "Nama Barang", "Harga",
+         "Jumlah", "Subtotal");
+  for ( i = 0; i < cartSize; i++) {
+    int subtotal = cart[i].price * cart[i].quantity;
+    total += subtotal;
+    printf("%-20s %-10d %-10d %-10d\n", cart[i].name, cart[i].price,
+           cart[i].quantity, subtotal);
+  }
+  printf(MAGENTA "---------------------------------------\n" RESET);
+  printf(MAGENTA "Total harga: %d\n" RESET, total);
+}
+
+
+void loadCart() {
+  FILE *file = fopen(FILENAME, "r");
+  if (!file) {
+    printf(YELLOW
+           "Tidak ada data sebelumnya, memulai keranjang baru...\n" RESET);
+    return;
+  }
+
+  while (fscanf(file, "%s %d %d", cart[cartSize].name, &cart[cartSize].price,
+                &cart[cartSize].quantity) == 3) {
+    cartSize++;
+  }
+
+  fclose(file);
+  printf(GREEN "Keranjang berhasil dimuat dari file.\n" RESET);
+}
+
+void saveCart() {
+	int i;
+  FILE *file = fopen(FILENAME, "w");
+  if (!file) {
+    printf(RED "Gagal menyimpan keranjang ke file!\n" RESET);
+    return;
+  }
+
+  for ( i = 0; i < cartSize; i++)
+    fprintf(file, "%s %d %d\n", cart[i].name, cart[i].price, cart[i].quantity);
+
+  fclose(file);
+  printf(GREEN "Keranjang berhasil disimpan ke file.\n" RESET);
+}
