@@ -1,0 +1,19 @@
+#include <stdio.h>
+#define pi 3.14159
+int main(){
+	printf("\n===program menghitung luas dan keliling sebuah lingkaran===");
+	
+	double jari2, luas, keliling;
+	printf("\nmasukan jari2 lingkaran: ");
+	scanf("%lf",&jari2);
+	
+	luas = pi*jari2*jari2;
+	keliling = 2*pi*jari2;
+	
+	printf("\n====hasil perhitungan====\n");
+	
+	printf("luas lingkaran %.2lf\n", luas);
+	printf("keliling lingkaran %.2lf\n", keliling); 
+	
+	return 0;
+}

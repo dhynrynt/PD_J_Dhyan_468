@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+int main(){
+	int elemen = 4;
+	int angka[4]={5,10,15,20};
+	int i;
+	
+	
+	printf("masukkan jumlah elemen: %d\n",elemen);
+	printf("masukkan elemen-elemen angka\n");
+	for(i=5;i<21;i+=5){
+		printf("%d\n",i);
+	}
+	
+	double rata_rata =i+elemen;
+	printf("nilai rata-rata adalah %2.lf\n", rata_rata);
+	
+	return 0;
+}
+
+
+
+
+                    //masukkan jumlah elemen
+					// masukkan elemen-elemen angka
+					//5,10,15,20
+					//rata-rata adalah 12.50

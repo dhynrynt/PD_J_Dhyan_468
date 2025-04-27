@@ -1,0 +1,189 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int id_link;
+
+typedef struct {
+  int id;
+  char nama[50];
+  char kategori[50];
+  int harga;
+  int stok;
+} Produk;
+
+void tambahProduk() {
+  FILE *file = fopen("produk_toko.txt", "a");
+  if (file == NULL) {
+    printf("Gagal membuka file!\n");
+    return;
+  }
+
+  Produk produk;
+  printf("Masukkan ID produk: ");
+  scanf("%d", &id_link);
+
+  FILE *cekFile = fopen("produk_toko.txt", "r");
+  if (cekFile != NULL) {
+    Produk cekProduk;
+    while (fscanf(cekFile, "%d %s %s %d %d", &id_link,
+                  cekProduk.nama, cekProduk.kategori, &cekProduk.harga,
+                  &cekProduk.stok) == 5) {
+      if (id_link == id_link) {
+        printf("ID sudah terdaftar!\n");
+        fclose(cekFile);
+        fclose(file);
+        return;
+      }
+    }
+    fclose(cekFile);
+  }
+
+  printf("Masukkan nama produk: ");
+  scanf(" %[^\n]", produk.nama);
+  printf("Masukkan kategori produk: ");
+  scanf(" %[^\n]", produk.kategori);
+  printf("Masukkan harga produk: ");
+  scanf("%d", &produk.harga);
+  printf("Masukkan stok produk: ");
+  scanf("%d", &produk.stok);
+
+  fprintf(file, "%d %s %s %d %d\n", id_link, produk.nama,
+          produk.kategori, produk.harga, produk.stok);
+  fclose(file);
+  printf("Produk berhasil ditambahkan!\n");
+}
+
+void tampilkanDaftarProduk() {
+  FILE *file = fopen("produk_toko.txt", "r");
+  if (file == NULL) {
+    printf("Gagal membuka file!\n");
+    return;
+  }
+
+  Produk produk;
+  printf("Daftar Produk:\n");
+  while (fscanf(file, "%d %s %s %d %d", &id_link, produk.nama,
+                produk.kategori, &produk.harga, &produk.stok) == 5) {
+    printf("ID: %d\nNama: %s\nKategori: %s\nHarga: %d\nStok: %d\n\n",
+           id_link, produk.nama, produk.kategori, produk.harga,
+           produk.stok);
+  }
+  fclose(file);
+}
+
+void updateInformasiProduk() {
+  FILE *file = fopen("produk_toko.txt", "r");
+  if (file == NULL) {
+    printf("Gagal membuka file!\n");
+    return;
+  }
+
+  FILE *tempFile = fopen("temp.txt", "w");
+  if (tempFile == NULL) {
+    printf("Gagal membuka file!\n");
+    fclose(file);
+    return;
+  }
+
+  Produk produk;
+  int id;
+  printf("Masukkan ID produk: ");
+  scanf("%d", &id);
+
+  while (fscanf(file, "%d %s %s %d %d", &id_link, produk.nama,
+                produk.kategori, &produk.harga, &produk.stok) == 5) {
+    if (id_link == id) {
+      printf("Masukkan nama produk baru: ");
+      scanf(" %[^\n]", produk.nama);
+      printf("Masukkan kategori produk baru: ");
+      scanf(" %[^\n]", produk.kategori);
+      printf("Masukkan harga produk baru: ");
+      scanf("%d", &produk.harga);
+      printf("Masukkan stok produk baru: ");
+      scanf("%d", &produk.stok);
+    }
+    fprintf(tempFile, "%d %s %s %d %d\n", id_link, produk.nama,
+            produk.kategori, produk.harga, produk.stok);
+  }
+
+  fclose(file);
+  fclose(tempFile);
+
+  remove("produk_toko.txt");
+  rename("temp.txt", "produk_toko.txt");
+  printf("Informasi produk berhasil diperbarui!\n");
+}
+
+void hapusProduk() {
+  FILE *file = fopen("produk_toko.txt", "r");
+  if (file == NULL) {
+    printf("Gagal membuka file!\n");
+    return;
+  }
+
+  FILE *tempFile = fopen("temp.txt", "w");
+  if (tempFile == NULL) {
+    printf("Gagal membuka file!\n");
+    fclose(file);
+    return;
+  }
+
+  Produk produk;
+  int id;
+  printf("Masukkan ID produk: ");
+  scanf("%d", &id);
+
+  while (fscanf(file, "%d %s %s %d %d", &id_link, produk.nama,
+                produk.kategori, &produk.harga, &produk.stok) == 5) {
+    if (id_link != id) {
+      fprintf(tempFile, "%d %s %s %d %d\n", id_link, produk.nama,
+              produk.kategori, produk.harga, produk.stok);
+    }
+  }
+
+  fclose(file);
+  fclose(tempFile);
+
+  remove("produk_toko.txt");
+  rename("temp.txt", "produk_toko.txt");
+  printf("Produk berhasil dihapus!\n");
+}
+
+int main() {
+  printf("Selamat datang di program Manajemen Toko Elektronik!\n");
+
+  while (1) {
+    printf("Menu:\n");
+    printf("1. Tambah Produk Baru\n");
+    printf("2. Tampilkan Daftar Produk\n");
+    printf("3. Update Informasi Produk\n");
+    printf("4. Hapus Produk\n");
+    printf("5. Keluar\n");
+    printf("Masukkan pilihan: ");
+
+    int pilihan;
+    scanf("%d", &pilihan);
+
+    switch (pilihan) {
+    case 1:
+      tambahProduk();
+      break;
+    case 2:
+      tampilkanDaftarProduk();
+      break;
+    case 3:
+      updateInformasiProduk();
+      break;
+    case 4:
+      hapusProduk();
+      break;
+    case 5:
+      exit(0);
+    default:
+      printf("Pilihan tidak valid!\n");
+    }
+  }
+
+  return 0;
+}

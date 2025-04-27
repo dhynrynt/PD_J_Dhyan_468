@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_BUAH 10
+#define MAX_PANJANG 50
+
+
+void urutkan_abjad(char buah[MAX_BUAH][MAX_PANJANG], int n) {
+    char temp[MAX_PANJANG];
+    int i,j;
+    for ( i = 0; i < n-1; i++) {
+        for ( j = i+1; j < n; j++) {
+            if (strcmp(buah[i], buah[j]) > 0) {
+                
+                strcpy(temp, buah[i]);
+                strcpy(buah[i], buah[j]);
+                strcpy(buah[j], temp);
+            }
+        }
+    }
+}
+ 
+int main() {
+    int n,i;
+
+    
+    printf("Masukkan jumlah buah (maksimal 10)   : ");
+    scanf("%d", &n);
+    getchar();  
+
+    
+    char buah[MAX_BUAH][MAX_PANJANG];
+
+    
+    for ( i = 0; i < n; i++) {
+        printf("Masukkan nama buah ke-%d: ", i+1);
+        fgets(buah[i], MAX_PANJANG, stdin);
+        buah[i][strcspn(buah[i], "\n")] = 0;  
+    }
+
+    
+    printf("\nNama Buah dalam Urutan yang Diinputkan:\n");
+    printf("-----------------------------\n");
+    for (i = 0; i < n; i++) {
+        printf("%d. %s\n", i+1, buah[i]);
+    }
+
+    
+    urutkan_abjad(buah, n);
+
+    
+    printf("\nNama Buah dalam Urutan Abjad:\n");
+    printf("-----------------------------\n");
+    for ( i = 0; i < n; i++) {
+        printf("%d. %s\n", i+1, buah[i]);
+    }
+
+    return 0;
+}
+
